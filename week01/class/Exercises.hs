@@ -20,6 +20,9 @@ j = 4
 d :: Double
 d = 3.14
 
+f :: Float
+f = 2.7
+
 {- GHCi:
     > 3 + 4
     > 8.7 / 3.1
@@ -38,6 +41,10 @@ d = 3.14
 {- Exercise:
    sumtorial n should evaluate to 0 + 1 + ... + n
    example: sumtorial 5 should be 15 -}
+sumtorial :: Int -> Int
+sumtorial n
+  | n == 0 = 0
+  | otherwise = n + sumtorial (n - 1)
 
 {- Part 3:
    Lists -}
@@ -45,3 +52,6 @@ d = 3.14
 {- Exercise:
    double xs should double every element in xs
    example: double [1, 2, 3] should be [2, 4, 6] -}
+double :: [Int] -> [Int]
+double [] = []
+double (x : xs) = 2 * x : double xs
