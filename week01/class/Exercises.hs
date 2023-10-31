@@ -53,5 +53,4 @@ sumtorial n
    double xs should double every element in xs
    example: double [1, 2, 3] should be [2, 4, 6] -}
 double :: [Int] -> [Int]
-double [] = []
-double (x : xs) = 2 * x : double xs
+double = map (2 *)
