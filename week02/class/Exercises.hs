@@ -10,6 +10,9 @@ data Weather
   | Snowy
   deriving (Show)
 
+wea :: Weather
+wea = Sunny
+
 data Point = Point Int Int
   deriving (Show)
 
@@ -17,6 +20,9 @@ data WeatherRequest
   = ByLocation String
   | ByCoordinate Point
   deriving (Show)
+
+weareq :: WeatherRequest
+weareq = ByCoordinate (Point 2 3)
 
 data WeatherResult
   = Valid Weather

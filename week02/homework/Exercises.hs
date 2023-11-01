@@ -19,7 +19,9 @@ data Nat
   deriving (Show, Eq)
 
 even :: Nat -> Bool
-even = error "unimplemented"
+even Z = True
+even (S Z) = False
+even (S (S s)) = even s
 
 exercise1a :: Test
 exercise1a =
@@ -31,7 +33,10 @@ exercise1a =
        ]
 
 max :: Nat -> Nat -> Nat
-max = error "unimplemented"
+max Z Z = Z
+max s Z = s
+max Z s = s
+max (S s1) (S s2) = S (max s1 s2)
 
 exercise1b :: Test
 exercise1b =
@@ -50,7 +55,9 @@ data Arith
   deriving (Show, Eq)
 
 eval :: Arith -> Int
-eval = error "unimplemented"
+eval (Num x) = x
+eval (Add a1 a2) = eval a1 + eval a2
+eval (Mul a1 a2) = eval a1 + eval a2
 
 exercise2a :: Test
 exercise2a =
@@ -61,7 +68,13 @@ exercise2a =
        ]
 
 opt0 :: Arith -> Arith
-opt0 = error "unimplemented"
+opt0 (Add (Num 0) a) = a
+opt0 (Add a (Num 0)) = a
+opt0 (Mul (Num 0) a) = Num 0
+opt0 (Mul a (Num 0)) = Num 0
+opt0 (Add a1 a2) = Add (opt0 a1) (opt0 a2)
+opt0 (Mul a1 a2) = Mul (opt0 a1) (opt0 a2)
+opt0 (Num a) = Num a
 
 exercise2b :: Test
 exercise2b =
@@ -80,9 +93,19 @@ data Empty
   Is it possible to write a function of type Empty -> Int?
   If so, write one! If not, briefly explain why. -}
 
+{- Answer:
+  能，但无法被调用，因为无法构造输入参数 -}
+empty2Int :: Empty -> Int
+empty2Int _ = 0
+
 {- Question:
   Is it possible to write a function of type Int -> Empty?
   If so, write one! If not, briefly explain why. -}
+
+{- Answer:
+不能，无法构造返回值 -}
+-- int2Empty :: Int -> Empty
+-- int2Empty _ = Empty
 
 ---- end of exercises ----
 
@@ -91,7 +114,7 @@ it took you to complete this homework. If you have any
 comments, feel free to also write them here. -}
 
 time :: Double
-time = error "unimplemented"
+time = 1
 
 checkTime :: Test
 checkTime = TestCase (assertBool "fill in any time" (time >= 0))
