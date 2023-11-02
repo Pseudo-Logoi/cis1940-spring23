@@ -10,7 +10,15 @@ data Person = Person String Int
    who are at most 18 years old.
 -}
 youngNames :: [Person] -> [String]
-youngNames = error "unimplemented"
+-- youngNames people =
+--   map (\(Person name _) -> name) (filter (\(Person _ age) -> age <= 18) people)
+youngNames people = map getName (filter isYoung people)
+  where
+    getName :: Person -> String
+    getName (Person name _) = name
+
+    isYoung :: Person -> Bool
+    isYoung (Person _ age) = age <= 18
 
 {- As usual, in a terminal in this folder, run
    $ stack ghci Exercises.hs
@@ -30,7 +38,7 @@ peopleInput = [Person "Bob" 12, Person "Jack" 23, Person "Jill" 18, Person "Alic
 -- Reimplement map and filter using foldr.
 
 map' :: (a -> b) -> [a] -> [b]
-map' = error "unimplemented"
+map' f as = foldr (\a bs -> f a : bs) [] as
 
 filter' :: (a -> Bool) -> [a] -> [a]
-filter' = error "unimplemented"
+filter' f as = foldr (\a bs -> if f a then a : bs else bs) [] as

@@ -9,7 +9,7 @@ import Prelude hiding (any, or)
 -- Exercise 1:
 
 or' :: [Bool] -> Bool
-or' = error "unimplemented"
+or' bools = foldr (||) False bools
 
 exercise1a :: Test
 exercise1a =
@@ -21,7 +21,7 @@ exercise1a =
        ]
 
 any' :: (a -> Bool) -> [a] -> Bool
-any' = error "unimplemented"
+any' f as = or' (map f as)
 
 exercise1b :: Test
 exercise1b =
@@ -33,7 +33,7 @@ exercise1b =
        ]
 
 any'' :: (a -> Bool) -> [a] -> Bool
-any'' = error "unimplemented"
+any'' f as = foldr (\a b -> f a || b) False as
 
 exercise1c :: Test
 exercise1c =
