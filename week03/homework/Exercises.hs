@@ -47,7 +47,7 @@ exercise1c =
 -- Exercise 2:
 
 silly :: String -> [String]
-silly = error "unimplemented"
+silly str = map (intersperse ',') (filter (notElem 'a') (words str))
 
 exercise2 :: Test
 exercise2 =
@@ -68,7 +68,7 @@ it took you to complete this homework. If you have any
 comments, feel free to also write them here. -}
 
 time :: Double
-time = error "unimplemented"
+time = 2
 
 checkTime :: Test
 checkTime = TestCase (assertBool "fill in any time" (time >= 0))
