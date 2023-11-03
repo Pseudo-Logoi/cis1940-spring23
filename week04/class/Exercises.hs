@@ -1,5 +1,7 @@
 module Exercises where
 
+import Data.Maybe (fromJust, isJust)
+
 {-
 Exercise 1:
 
@@ -8,7 +10,7 @@ don't add to result. If returns (Just b), add b to the result.
 -}
 
 mapMaybe :: (a -> Maybe b) -> [a] -> [b]
-mapMaybe = error "unimplemented"
+mapMaybe f a_s = map (fromJust . f) (filter (isJust . f) a_s)
 
 safeHead :: [a] -> Maybe a
 safeHead (x : _) = Just x
@@ -33,7 +35,7 @@ Try to write these as concisely as possible.
 -}
 
 and :: [Bool] -> Bool
-and = error "unimplemented"
+and = foldr (&&) True
 
 all :: (a -> Bool) -> [a] -> Bool
-all = error "unimplemented"
+all f = Exercises.and . map f
