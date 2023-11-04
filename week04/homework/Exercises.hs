@@ -1,5 +1,6 @@
 module Exercises where
 
+import GHC.Base (VecElem (Int16ElemRep))
 import Test.HUnit
 import Prelude hiding (concat, concatMap)
 
@@ -8,7 +9,11 @@ import Prelude hiding (concat, concatMap)
 -- Exercise 1:
 
 safeLast :: [a] -> Maybe a
-safeLast = error "unimplemented"
+safeLast = foldr foldr_f Nothing
+  where
+    foldr_f :: a -> Maybe a -> Maybe a
+    foldr_f a_i Nothing = Just a_i
+    foldr_f a_i b_i = b_i
 
 exercise1 :: Test
 exercise1 =
@@ -21,7 +26,7 @@ exercise1 =
 -- Exercise 2:
 
 concat' :: [[a]] -> [a]
-concat' = error "unimplemented"
+concat' = foldr (++) []
 
 exercise2a :: Test
 exercise2a =
@@ -32,7 +37,7 @@ exercise2a =
        ]
 
 concatMap' :: (a -> [b]) -> [a] -> [b]
-concatMap' = error "unimplemented"
+concatMap' f a_s = concat' (map f a_s)
 
 exercise2b :: Test
 exercise2b =
@@ -54,7 +59,13 @@ func (x : xs)
   | otherwise = func xs
 
 func' :: [Int] -> Int
-func' = error "unimplemented"
+func' = get_result . get_even
+  where
+    get_even :: [Int] -> [Int]
+    get_even = filter even
+
+    get_result :: [Int] -> Int
+    get_result = foldr (\a_i b_i -> (a_i - 2) * b_i) 1
 
 ---- end of exercises ----
 
@@ -63,7 +74,7 @@ it took you to complete this homework. If you have any
 comments, feel free to also write them here. -}
 
 time :: Double
-time = error "unimplemented"
+time = 1
 
 checkTime :: Test
 checkTime = TestCase (assertBool "fill in any time" (time >= 0))
